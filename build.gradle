@@ -1,3 +1,5 @@
+import java.time.LocalDateTime
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.0.0'
@@ -29,4 +31,39 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+task generateSampleData() {
+	File importSql = file("src/main/resources/import.sql")
+	importSql.write("")
+
+	for (int i = 1; i <= 50; i++) {
+		importSql.append("INSERT INTO users(username, password) " +
+				"VALUES ('User${i}','Password${i}');\n"
+		)
+	}
+
+	for (int i = 1; i <= 50; i++) {
+		importSql.append("INSERT INTO groups(name) " +
+				"VALUES ('Group${i}');\n"
+		)
+	}
+
+	for (int i = 1; i <= 50; i++) {
+		boolean isCompleted = Math.random() > 0.5
+		int groupId = 1 + i / 5
+
+		importSql.append("INSERT INTO tasks(name, description, deadline_time, is_completed, group_id) " +
+				"VALUES ('Task ${i}', 'Description ${i}', '${LocalDateTime.now().plusDays(20)}', '${isCompleted}', '${groupId}');\n"
+		)
+	}
+
+	for (int i = 1; i <= 50; i++) {
+		boolean isDone = Math.random() > 0.5
+		int taskId = 1 + i / 5
+
+		importSql.append("INSERT INTO subtasks(content, is_done, task_id) " +
+				"VALUES ('Content ${i}', '${isDone}', '${taskId}');\n"
+		)
+	}
 }
