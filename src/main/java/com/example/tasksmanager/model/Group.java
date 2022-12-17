@@ -26,6 +26,6 @@ public class Group {
     private List<User> participants;
 
     @OneToMany
-    @JoinColumn(name = "group_id")
+    @JoinColumn(name = "groupId")
     private List<Task> tasks;
 }
