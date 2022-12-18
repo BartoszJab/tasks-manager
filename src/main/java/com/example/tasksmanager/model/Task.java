@@ -23,7 +23,7 @@ public class Task {
     private boolean isCompleted;
 
     @OneToMany
-    @JoinColumn(name = "task_id")
+    @JoinColumn(name = "taskId")
     private List<Subtask> subtasks;
 
     public Task(Long groupId, String name, String description, LocalDateTime deadlineTime, boolean isCompleted) {
