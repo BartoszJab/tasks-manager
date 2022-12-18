@@ -1,8 +1,7 @@
 package com.example.tasksmanager.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,6 +10,7 @@ import java.util.List;
 @Table(name = "tasks")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Task {
 
     @Id
@@ -25,4 +25,12 @@ public class Task {
     @OneToMany
     @JoinColumn(name = "task_id")
     private List<Subtask> subtasks;
+
+    public Task(Long groupId, String name, String description, LocalDateTime deadlineTime, boolean isCompleted) {
+        this.groupId = groupId;
+        this.name = name;
+        this.description = description;
+        this.deadlineTime = deadlineTime;
+        this.isCompleted = isCompleted;
+    }
 }

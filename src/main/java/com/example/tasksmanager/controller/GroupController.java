@@ -1,9 +1,11 @@
 package com.example.tasksmanager.controller;
 
+import com.example.tasksmanager.dto.TaskDto;
 import com.example.tasksmanager.model.Group;
 import com.example.tasksmanager.model.Task;
 import com.example.tasksmanager.service.GroupService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,8 +33,15 @@ public class GroupController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     Group addGroup(@RequestBody Group group) {
         return groupService.addGroup(group);
+    }
+
+    @PostMapping("/{groupId}/tasks")
+    @ResponseStatus(HttpStatus.CREATED)
+    Task addTaskToGroup(@PathVariable Long groupId, @RequestBody TaskDto task) {
+        return groupService.addTaskToGroup(groupId, task);
     }
 
     @PutMapping

@@ -1,5 +1,6 @@
 package com.example.tasksmanager.service;
 
+import com.example.tasksmanager.dto.TaskDto;
 import com.example.tasksmanager.model.Group;
 import com.example.tasksmanager.model.Task;
 import com.example.tasksmanager.repository.GroupRepository;
@@ -31,6 +32,18 @@ public class GroupService {
 
     public Group addGroup(Group group) {
         return groupRepository.save(group);
+    }
+
+    public Task addTaskToGroup(Long groupId, TaskDto task) {
+        Task newTask = new Task(
+                groupId,
+                task.getName(),
+                task.getDescription(),
+                task.getDeadlineTime(),
+                false
+        );
+
+        return taskRepository.save(newTask);
     }
 
     public void deleteGroup(Long id) {
