@@ -39,6 +39,18 @@ task generateSampleData() {
 	File importSql = file("src/main/resources/import.sql")
 	importSql.write("")
 
+	// password data - userpassword, adminpassword
+	importSql.append("INSERT INTO users(username, password) " +
+			"VALUES ('user', '\$2a\$12\$490vwczpIpr2jKDSdRCkSOYSYuanCxOtSnEm25Hm6qSGJyb9MuYpG');\n")
+	importSql.append("INSERT INTO users(username, password) " +
+			"VALUES ('admin', '\$2a\$12\$OzMXUBKH2Rux0wo5uwha4eUjmvD8f9trJc86oY97Qr2ze9jeHDydW');\n")
+
+	def roles = ["ROLE_USER", "ROLE_ADMIN"]
+	for (int i = 0; i < roles.size(); i++) {
+		importSql.append("INSERT INTO roles(role_name)" +
+				"VALUES ('${roles.get(i)}');\n")
+	}
+
 	for (int i = 1; i <= 50; i++) {
 		importSql.append("INSERT INTO groups(name) " +
 				"VALUES ('Group${i}');\n"
@@ -62,4 +74,10 @@ task generateSampleData() {
 				"VALUES ('Content ${i}', '${isDone}', '${taskId}');\n"
 		)
 	}
+
+	// 1 - USER, 2 - ADMIN
+	importSql.append("INSERT INTO role_user(role_id, user_id) " +
+			"VALUES ('1', '1');\n")
+	importSql.append("INSERT INTO role_user(role_id, user_id) " +
+			"VALUES ('2', '2');\n")
 }
