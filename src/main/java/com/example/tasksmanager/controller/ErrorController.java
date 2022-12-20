@@ -21,8 +21,10 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
             return "Unauthorized";
         } else if (statusCode == HttpStatus.BAD_REQUEST.value()) {
             return "Bad request";
+        } else if (statusCode == HttpStatus.FORBIDDEN.value()) {
+            return "Forbidden";
         }
 
-        return "error";
+        return statusCode.toString();
     }
 }
