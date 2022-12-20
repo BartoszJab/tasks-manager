@@ -23,8 +23,6 @@ public class User {
     @ManyToMany(mappedBy = "participants")
     private List<Group> groups;
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+    private List<Role> roles;
 }
