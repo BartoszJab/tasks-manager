@@ -2,6 +2,7 @@ package com.example.tasksmanager.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Table(name = "users")
 @Getter
 @Setter
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -20,4 +22,9 @@ public class User {
 
     @ManyToMany(mappedBy = "participants")
     private List<Group> groups;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }

@@ -40,12 +40,6 @@ task generateSampleData() {
 	importSql.write("")
 
 	for (int i = 1; i <= 50; i++) {
-		importSql.append("INSERT INTO users(username, password) " +
-				"VALUES ('User${i}','Password${i}');\n"
-		)
-	}
-
-	for (int i = 1; i <= 50; i++) {
 		importSql.append("INSERT INTO groups(name) " +
 				"VALUES ('Group${i}');\n"
 		)
