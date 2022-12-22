@@ -6,6 +6,7 @@ import com.example.tasksmanager.model.Task;
 import com.example.tasksmanager.service.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,16 +41,19 @@ public class GroupController {
 
     @PostMapping("/{groupId}/tasks")
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("@authComponent.hasGroupPermission(#groupId)")
     Task addTaskToGroup(@PathVariable Long groupId, @RequestBody TaskDto task) {
         return groupService.addTaskToGroup(groupId, task);
     }
 
     @PutMapping
+    @PreAuthorize("@authComponent.hasGroupPermission(#group.id)")
     Group editGroup(@RequestBody Group group) {
         return groupService.editGroup(group);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("@authComponent.hasGroupPermission(#id)")
     void deleteGroup(@PathVariable Long id) {
         groupService.deleteGroup(id);
     }
