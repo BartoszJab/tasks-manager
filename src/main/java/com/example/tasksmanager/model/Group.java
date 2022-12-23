@@ -1,5 +1,6 @@
 package com.example.tasksmanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,7 @@ public class Group {
     private Long id;
     private String name;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "group_user",
