@@ -56,4 +56,8 @@ public class GroupService {
 
         return groupEdited;
     }
+
+    public void addUserToGroup(Long groupId, Long userId) {
+        groupRepository.addUserToGroup(groupId, userId);
+    }
 }

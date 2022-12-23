@@ -46,6 +46,12 @@ public class GroupController {
         return groupService.addTaskToGroup(groupId, task);
     }
 
+    @PostMapping("/{groupId}/users/{userId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    void addUserToGroup(@PathVariable Long groupId, @PathVariable Long userId) {
+        groupService.addUserToGroup(groupId, userId);
+    }
+
     @PutMapping
     @PreAuthorize("@authComponent.hasGroupPermission(#group.id)")
     Group editGroup(@RequestBody Group group) {
