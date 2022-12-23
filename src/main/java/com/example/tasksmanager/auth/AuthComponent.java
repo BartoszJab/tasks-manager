@@ -10,14 +10,13 @@ import org.springframework.stereotype.Component;
 public class AuthComponent {
 
     private final GroupRepository groupRepository;
-    private final Authentication authentication;
 
     public AuthComponent(GroupRepository groupRepository) {
         this.groupRepository = groupRepository;
-        this.authentication = SecurityContextHolder.getContext().getAuthentication();
     }
 
     public boolean hasGroupPermission(Long groupId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Group group = groupRepository.findById(groupId).orElseThrow();
 
         return group.getParticipants().stream().anyMatch(u -> u.getUsername().equals(authentication.getName()));
