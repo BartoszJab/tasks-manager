@@ -23,6 +23,6 @@ public class User {
     @ManyToMany(mappedBy = "participants")
     private List<Group> groups;
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "users")
     private List<Role> roles;
 }
