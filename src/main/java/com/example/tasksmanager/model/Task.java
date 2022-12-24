@@ -22,7 +22,7 @@ public class Task {
     private LocalDateTime deadlineTime;
     private boolean isCompleted;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "taskId")
     private List<Subtask> subtasks;
 

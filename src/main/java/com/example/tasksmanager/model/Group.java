@@ -27,7 +27,7 @@ public class Group {
     )
     private List<User> participants;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "groupId")
     private List<Task> tasks;
 }
