@@ -24,4 +24,8 @@ public class Role {
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
     )
     private List<User> users;
+
+    public void addUserToRole(User user) {
+        users.add(user);
+    }
 }
