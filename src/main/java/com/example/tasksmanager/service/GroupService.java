@@ -3,8 +3,12 @@ package com.example.tasksmanager.service;
 import com.example.tasksmanager.dto.TaskDto;
 import com.example.tasksmanager.model.Group;
 import com.example.tasksmanager.model.Task;
+import com.example.tasksmanager.model.User;
 import com.example.tasksmanager.repository.GroupRepository;
 import com.example.tasksmanager.repository.TaskRepository;
+import com.example.tasksmanager.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class GroupService {
 
+    private final UserRepository userRepository;
     private final GroupRepository groupRepository;
     private final TaskRepository taskRepository;
 
@@ -50,6 +55,7 @@ public class GroupService {
         groupRepository.deleteById(id);
     }
 
+    @Transactional
     public Group editGroup(Group group) {
         Group groupEdited = groupRepository.findById(group.getId()).orElseThrow();
         groupEdited.setName(group.getName());
@@ -58,6 +64,14 @@ public class GroupService {
     }
 
     public void addUserToGroup(Long groupId, Long userId) {
-        groupRepository.addUserToGroup(groupId, userId);
+        User user = userRepository.findById(userId).orElse(null);
+        Group group = groupRepository.findById(groupId).orElse(null);
+
+        if (user == null || group == null) {
+            throw new EntityNotFoundException();
+        }
+
+        group.getParticipants().add(user);
+        groupRepository.save(group);
     }
 }
