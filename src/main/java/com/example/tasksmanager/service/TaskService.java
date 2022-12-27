@@ -2,10 +2,13 @@ package com.example.tasksmanager.service;
 
 import com.example.tasksmanager.dto.SubtaskDto;
 import com.example.tasksmanager.model.Subtask;
+import com.example.tasksmanager.model.Task;
 import com.example.tasksmanager.repository.SubtaskRepository;
 import com.example.tasksmanager.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -21,5 +24,9 @@ public class TaskService {
 
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
+    }
+
+    public List<Task> findByGroupId(Long groupId) {
+        return taskRepository.findByGroupId(groupId);
     }
 }

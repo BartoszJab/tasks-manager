@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("groups/{groupId}/tasks")
 @RequiredArgsConstructor
@@ -18,6 +20,11 @@ public class TaskController {
 
     private final GroupService groupService;
     private final TaskService taskService;
+
+    @GetMapping
+    List<Task> getTasks(@PathVariable Long groupId) {
+        return taskService.findByGroupId(groupId);
+    }
 
     @GetMapping("/{taskId}")
     Task getTaskForGroup(@PathVariable Long groupId, @PathVariable Long taskId) {
